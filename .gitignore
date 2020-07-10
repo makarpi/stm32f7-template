@@ -1,0 +1,13 @@
+/out
+/
+/Datasheets/
+
+/debug/
+/src/out/
+
+/.settings/
+.cproject
+.project
+*.tko
+/figures/
+awarie.txt

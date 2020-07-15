@@ -52,7 +52,11 @@ AS_DEFS =
 # include directories (absolute or relative paths to additional folders with
 # headers, current folder is always included)
 
-INC_DIRS = lib/STM32F7xx_HAL_Driver/Inc
+INC_DIRS = hardware/core
+INC_DIRS += hardware/i2c_master
+INC_DIRS += hardware/led
+INC_DIRS += hardware/utils
+INC_DIRS += lib/STM32F7xx_HAL_Driver/Inc
 INC_DIRS += lib/CMSIS/Device/ST/STM32F7xx/Include
 INC_DIRS += lib/CMSIS/Include
 
@@ -70,6 +74,7 @@ LIBS = -lm -lc
 #SRCS_DIRS += System/CycleCountMeasurements
 SRCS_DIRS = 
 SRCS_DIRS += hardware/core
+SRCS_DIRS += hardware/i2c_master
 SRCS_DIRS += lib/STM32F7xx_HAL_Driver/Src
 
 # extension of C++ files

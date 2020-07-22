@@ -1,14 +1,23 @@
 #include "platform.h"
 
+#include "usart.h"
+
 static void SystemClock_Config(void);
+
+int zmiennaTestowa = 0;
 
 int main(void)
 {
     SystemInit();
     SystemClock_Config();
 
+    usart_init();
+
+    LL_USART_TransmitData8(USART3, 'a');
+
     while (1)
     {
+       zmiennaTestowa++;
     }
 }
 

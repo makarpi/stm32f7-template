@@ -55,14 +55,18 @@ AS_DEFS =
 INC_DIRS = hardware/core
 INC_DIRS += hardware/i2c_master
 INC_DIRS += hardware/led
+INC_DIRS += hardware/usart
 INC_DIRS += hardware/utils
+INC_DIRS += system/imu
+INC_DIRS += system/position
 INC_DIRS += lib/STM32F7xx_HAL_Driver/Inc
+INC_DIRS += lib/STMems_Standard_C_drivers/lsm6dso_STdC/driver
 INC_DIRS += lib/CMSIS/Device/ST/STM32F7xx/Include
 INC_DIRS += lib/CMSIS/Include
 
 # library directories (absolute or relative paths to additional folders with
 # libraries)
-LIB_DIRS = ../external/libc.a 
+LIB_DIRS = 
 
 # libraries (additional libraries for linking, e.g. "-lm -lsome_name" to link
 # math library libm.a and libsome_name.a)
@@ -75,7 +79,12 @@ LIBS = -lm -lc
 SRCS_DIRS = 
 SRCS_DIRS += hardware/core
 SRCS_DIRS += hardware/i2c_master
+SRCS_DIRS += hardware/led
+SRCS_DIRS += hardware/usart
+SRCS_DIRS += system/imu
+SRCS_DIRS += system/position
 SRCS_DIRS += lib/STM32F7xx_HAL_Driver/Src
+SRCS_DIRS += lib/STMems_Standard_C_drivers/lsm6dso_STdC/driver
 
 # extension of C++ files
 CXX_EXT = cpp
@@ -100,7 +109,7 @@ AS_SRCS = $(wildcard $(patsubst %, %/*.$(AS_EXT), . $(SRCS_DIRS)))
 
 # optimization flags ("-O0" - no optimization, "-O1" - optimize, "-O2" -
 # optimize even more, "-Os" - optimize for size or "-O3" - optimize yet more) 
-OPTIMIZATION = -O0
+OPTIMIZATION = -Og
 # set to 1 to optimize size by removing unused code and data during link phase
 REMOVE_UNUSED = 1
 

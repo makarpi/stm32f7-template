@@ -5,26 +5,87 @@
 
 #include "led.h"
 
+typedef struct{
+    GPIO_TypeDef* gpioPort;
+    uint32_t    gpioPin;
+    uint32_t    gpioClock;
+}leds_t;
 
-void led_init(void)
+leds_t ledRed = {
+    .gpioPort = GPIOB,
+    .gpioPin = LL_GPIO_PIN_14,
+    .gpioClock = LL_AHB1_GRP1_PERIPH_GPIOB
+};
+
+leds_t ledBlue = {
+    .gpioPort = GPIOB,
+    .gpioPin = LL_GPIO_PIN_7,
+    .gpioClock = LL_AHB1_GRP1_PERIPH_GPIOB
+};
+
+static void led_init(leds_t *pLed);
+static void led_on(leds_t *pLed);
+static void led_off(leds_t *pLed);
+static void led_toggle(leds_t *pLed);
+
+void leds_init(void)
 {
-    LL_GPIO_InitTypeDef LED2_GPIO_User = {0};
+    led_init(&ledRed);
+    led_init(&ledBlue);
+}
 
-    LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOB);
+void leds_blueLedSetState(uint8_t state)
+{
+    if(1 == state)
+    {
+        led_on(&ledBlue);
+    }
+    else if(2 == state)
+    {
+        led_toggle(&ledBlue);
+    }
+    else if(0 == state)
+    {
+        led_off(&ledBlue);
+    }
+}
 
-    LED2_GPIO_User.Pin = LL_GPIO_PIN_7;
-    LED2_GPIO_User.Mode = LL_GPIO_MODE_OUTPUT;
-    LED2_GPIO_User.Pull = LL_GPIO_PULL_NO;
+void leds_redLedSetState(uint8_t state)
+{
+    if(1 == state)
+    {
+        led_on(&ledRed);
+    }
+    else
+    {
+        led_off(&ledRed);
+    }   
+}
 
-    LL_GPIO_Init(GPIOB, &LED2_GPIO_User);
+static void led_init(leds_t *pLed)
+{
+    LL_GPIO_InitTypeDef LED_GPIO_User = {0};
 
-    LED2_GPIO_User.Pin = LL_GPIO_PIN_14;
-    LED2_GPIO_User.Mode = LL_GPIO_MODE_OUTPUT;
-    LED2_GPIO_User.Pull = LL_GPIO_PULL_NO;
+    LL_AHB1_GRP1_EnableClock(pLed->gpioClock);
 
-    LL_GPIO_Init(GPIOB, &LED2_GPIO_User);
+    LED_GPIO_User.Pin = pLed->gpioPin;
+    LED_GPIO_User.Mode = LL_GPIO_MODE_OUTPUT;
+    LED_GPIO_User.Pull = LL_GPIO_PULL_NO;
 
-    LL_GPIO_TogglePin(GPIOB, LL_GPIO_PIN_7);
-    LL_GPIO_TogglePin(GPIOB, LL_GPIO_PIN_14);
-    // LL_GPIO_TogglePin(GPIOB, LL_GPIO_PIN_7);
+    LL_GPIO_Init(pLed->gpioPort, &LED_GPIO_User);
+}
+
+static void led_on(leds_t *pLed)
+{
+    LL_GPIO_SetOutputPin(pLed->gpioPort, pLed->gpioPin);
+}
+
+static void led_off(leds_t *pLed)
+{
+    LL_GPIO_ResetOutputPin(pLed->gpioPort, pLed->gpioPin);
+}
+
+static void led_toggle(leds_t *pLed)
+{
+    LL_GPIO_TogglePin(pLed->gpioPort, pLed->gpioPin);
 }

@@ -1,23 +1,25 @@
 #include "platform.h"
 
-#include "usart.h"
+#include "console.h"
+#include "led.h"
 
 static void SystemClock_Config(void);
 
-int zmiennaTestowa = 0;
-
 int main(void)
 {
+    /* Microcontroller system and clock init */
     SystemInit();
     SystemClock_Config();
 
-    usart_init();
-
-    LL_USART_TransmitData8(USART3, 'a');
+    /* Console init */
+    console_init();
+    leds_init();
+    leds_blueLedSetState(1);
+    leds_redLedSetState(1);
 
     while (1)
     {
-       zmiennaTestowa++;
+
     }
 }
 

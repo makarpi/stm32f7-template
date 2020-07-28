@@ -1,3 +1,12 @@
+/*
+ * file:	platform.h
+ * author:	makarpi
+ * brief:	
+ */
+
+#ifndef _PLATFORM_H_
+#define _PLATFORM_H_
+
 #include "stm32f7xx_ll_bus.h"
 #include "stm32f7xx_ll_rcc.h"
 #include "stm32f7xx_ll_system.h"
@@ -23,3 +32,5 @@
 #include "stm32f7xx.h"
 #include "stm32f7xx_ll_gpio.h"
 #include "system_stm32f7xx.h"
+
+#endif /* _PLATFORM_H_ */

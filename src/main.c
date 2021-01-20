@@ -2,11 +2,29 @@
 
 #include "console.h"
 #include "led.h"
+#include "timer.h"
+
+// #include "FreeRTOS.h"
+// #include "task.h"
 
 static void SystemClock_Config(void);
+static void prvSetupHardware(void); 
 
 int main(void)
 {
+    prvSetupHardware();
+
+    // vTaskStartScheduler();
+
+    while (1)
+    {
+
+    }
+}
+
+static void prvSetupHardware(void)
+{
+	// It's place to hardware configuration, like e.g. clock external source
     /* Microcontroller system and clock init */
     SystemInit();
     SystemClock_Config();
@@ -14,13 +32,10 @@ int main(void)
     /* Console init */
     console_init();
     leds_init();
-    leds_blueLedSetState(1);
-    leds_redLedSetState(1);
+    leds_blueLedSetState(LEDS_STATE_ON);
+    leds_redLedSetState(LEDS_STATE_OFF);
 
-    while (1)
-    {
-
-    }
+    timer_init();
 }
 
 static void SystemClock_Config(void)

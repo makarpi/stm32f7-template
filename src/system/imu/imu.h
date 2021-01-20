@@ -1,6 +1,10 @@
+/*
+ * file:	imu.h
+ * author:	makarpi
+ * brief:	
+ */
+
 #ifndef _IMU_H_
 #define _IMU_H_
 
-
-
-#endif
+#endif /* _IMU_H_ */

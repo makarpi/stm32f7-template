@@ -55,15 +55,19 @@ AS_DEFS =
 INC_DIRS = hardware/core
 INC_DIRS += hardware/i2c_master
 INC_DIRS += hardware/led
+INC_DIRS += hardware/timer
 INC_DIRS += hardware/usart
 INC_DIRS += hardware/utils
 INC_DIRS += system/console
+INC_DIRS += system/freertos
 INC_DIRS += system/imu
 INC_DIRS += system/position
 INC_DIRS += lib/STM32F7xx_HAL_Driver/Inc
 INC_DIRS += lib/STMems_Standard_C_drivers/lsm6dso_STdC/driver
 INC_DIRS += lib/CMSIS/Device/ST/STM32F7xx/Include
 INC_DIRS += lib/CMSIS/Include
+INC_DIRS += lib/FreeRTOS/Source/include
+INC_DIRS += lib/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1
 
 # library directories (absolute or relative paths to additional folders with
 # libraries)
@@ -76,17 +80,20 @@ LIBS = -lm -lc
 # additional directories with source files (absolute or relative paths to
 # folders with source files, current folder is always included)
 
-#SRCS_DIRS += System/CycleCountMeasurements
-SRCS_DIRS = 
 SRCS_DIRS += hardware/core
 SRCS_DIRS += hardware/i2c_master
 SRCS_DIRS += hardware/led
+SRCS_DIRS += hardware/timer
 SRCS_DIRS += hardware/usart
 SRCS_DIRS += system/console
 SRCS_DIRS += system/imu
 SRCS_DIRS += system/position
 SRCS_DIRS += lib/STM32F7xx_HAL_Driver/Src
 SRCS_DIRS += lib/STMems_Standard_C_drivers/lsm6dso_STdC/driver
+SRCS_DIRS += lib/FreeRTOS/Source
+SRCS_DIRS += lib/FreeRTOS/Source/portable
+SRCS_DIRS += lib/FreeRTOS/Source/portable/MemMang
+SRCS_DIRS += lib/FreeRTOS/Source/portable/GCC/ARM_CM7/r0p1
 
 # extension of C++ files
 CXX_EXT = cpp

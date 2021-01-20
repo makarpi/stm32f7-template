@@ -88,12 +88,12 @@ static void i2c_master_i2c_init(void)
     // LL_I2C_EnableIT_STOP(I2C1);
 }
 
-int32_t i2c_master_write(void *handle, uint8_t slaveAddress, uint8_t reg, uint8_t *bufp, uint16_t len)
+int32_t i2c_master_write(void *handle, uint8_t slaveAddress, uint8_t *pBuf, uint16_t len)
 {
     
     uint16_t transmitBufferIndex = 0;
 
-    LL_I2C_HandleTransfer(handle, 0xd6, LL_I2C_ADDRSLAVE_7BIT, len + 1, LL_I2C_MODE_AUTOEND, LL_I2C_GENERATE_START_WRITE);
+    LL_I2C_HandleTransfer(handle, slaveAddress, LL_I2C_ADDRSLAVE_7BIT, len + 1, LL_I2C_MODE_AUTOEND, LL_I2C_GENERATE_START_WRITE);
 
 #if (USE_TIMEOUT == 1)
     Timeout = I2C_SEND_TIMEOUT_TXIS_MS;
@@ -109,16 +109,10 @@ int32_t i2c_master_write(void *handle, uint8_t slaveAddress, uint8_t reg, uint8_
         {
             /* Write data in Transmit Data register.
 			 TXIS flag is cleared by writing data in TXDR register */
-            if (transmitBufferIndex++ == 0)
+            while(len--)
             {
-                LL_I2C_TransmitData8(handle, reg);
+                LL_I2C_TransmitData8(handle, *(pBuf++));
             }
-            else
-            {
-                LL_I2C_TransmitData8(handle, *(bufp++));
-                //				transmitBufferIndex
-            }
-
 #if (USE_TIMEOUT == 1)
             Timeout = I2C_SEND_TIMEOUT_TXIS_MS;
 #endif /* USE_TIMEOUT */

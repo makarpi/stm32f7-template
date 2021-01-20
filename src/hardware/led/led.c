@@ -36,15 +36,15 @@ void leds_init(void)
 
 void leds_blueLedSetState(uint8_t state)
 {
-    if(1 == state)
+    if(LEDS_STATE_ON == state)
     {
         led_on(&ledBlue);
     }
-    else if(2 == state)
+    else if(LEDS_STATE_TOGGLE == state)
     {
         led_toggle(&ledBlue);
     }
-    else if(0 == state)
+    else if(LEDS_STATE_OFF == state)
     {
         led_off(&ledBlue);
     }
@@ -52,14 +52,18 @@ void leds_blueLedSetState(uint8_t state)
 
 void leds_redLedSetState(uint8_t state)
 {
-    if(1 == state)
+    if(LEDS_STATE_ON == state)
     {
         led_on(&ledRed);
     }
-    else
+    else if(LEDS_STATE_TOGGLE == state)
+    {
+        led_toggle(&ledRed);
+    }
+    else if(LEDS_STATE_OFF == state)
     {
         led_off(&ledRed);
-    }   
+    }
 }
 
 static void led_init(leds_t *pLed)

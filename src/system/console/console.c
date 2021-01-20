@@ -17,5 +17,5 @@ void console_init(void)
 
 static void console_putWelcomeMessage(void)
 {
-    usart_puts(WELCOME_MESSAGE);
+    usart_puts(USART3, WELCOME_MESSAGE);
 }
